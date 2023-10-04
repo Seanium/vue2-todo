@@ -102,11 +102,11 @@ export default {
   <section class="todoapp">
     <header class="header">
       <h1>todos</h1>
-      <input @keyup.enter="addTodo" class="new-todo" placeholder="弄啥嘞？" autofocus>
+      <input id="new-todo" @keyup.enter="addTodo" class="new-todo" placeholder="弄啥嘞？" autofocus title="new-todo">
     </header>
     <!-- This section should be hidden by default and shown when there are todos -->
     <section class="main" v-show="todos.length">
-      <input id="toggle-all" class="toggle-all" type="checkbox" @click="toggleAll">
+      <input id="toggle-all" class="toggle-all" type="checkbox" @click="toggleAll" title="toggle-all">
       <label for="toggle-all">Mark all as complete</label>
       <ul class="todo-list">
         <!-- These are here just to show the structure of the list items -->
@@ -115,12 +115,12 @@ export default {
           completed: todo.completed, editing: todo == editedTodo
         }">
           <div class="view">
-            <input class="toggle" type="checkbox" v-model="todo.completed">
-            <label v-text="todo.title" @dblclick="editTodo(todo)"></label>
-            <button class="destroy" @click="removeTodo(todo)"></button>
+            <input :id="todo.id + 'toggle'" class="toggle" type="checkbox" v-model="todo.completed" title="toggle">
+            <label :for="todo.id + 'edit'" v-text="todo.title" @dblclick="editTodo(todo)"></label>
+            <button class="destroy" @click="removeTodo(todo)" title="destroy"></button>
           </div>
-          <input class="edit" type="text" v-model="todo.title" @blur="doneEdit(todo)" @keyup.enter="doneEdit(todo)"
-            @keyup.esc="cancelEdit(todo)">
+          <input :id="todo.id + 'edit'" class="edit" type="text" v-model="todo.title" @blur="doneEdit(todo)"
+            @keyup.enter="doneEdit(todo)" @keyup.esc="cancelEdit(todo)" title="edit">
         </li>
       </ul>
     </section>
